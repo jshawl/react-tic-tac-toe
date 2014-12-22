@@ -1,6 +1,13 @@
 var TicTacToeBoard = React.createClass({
+  getInitialState: function(){
+    return { clicks: 0 };		   
+  },
   render: function(){
-    this.props.clicks = 1;
+    var self = this;
+    var setClick = function(){
+      self.setState({clicks: this.state.clicks += 1 }) 
+    };
+    console.log( this.props );
     return (
       <div className="ticTacToeBoard">
         <TicTacToeSquare />
@@ -29,8 +36,7 @@ var TicTacToeSquare = React.createClass({
 	checked: true
       });
     }
-    this.props.clicks += 1;
-    console.log( this.props );
+    this.props.setClick();
   },
   render: function(){
     var icon = this.state.checked ? "x" : "";
