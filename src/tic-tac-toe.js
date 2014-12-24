@@ -1,26 +1,11 @@
+var clicks = 0;
 var TicTacToeBoard = React.createClass({
-  getInitialState: function(){
-    return { clicks: 0 };		   
-  },
   render: function(){
-    var self = this;
-    var setClick = function(){
-      self.setState({clicks: this.state.clicks += 1 }) 
-    };
-    console.log( this.props );
     return (
-      <div className="ticTacToeBoard">
-        <TicTacToeSquare />
-        <TicTacToeSquare />
-        <TicTacToeSquare />
-
-        <TicTacToeSquare />
-        <TicTacToeSquare />
-        <TicTacToeSquare />
-
-        <TicTacToeSquare />
-        <TicTacToeSquare />
-        <TicTacToeSquare />
+      <div className="ticTacToeBoard" >
+        <TicTacToeSquare turn={this.props.turn}/>
+        <TicTacToeSquare turn={this.props.turn}/>
+        <TicTacToeSquare turn={this.props.turn}/>
       </div>
     );	  
   }
@@ -30,25 +15,27 @@ var TicTacToeSquare = React.createClass({
   getInitialState: function(){
     return { checked: false };		   
   },
+  getTurn: function(){
+    this.props.turn = this.props.turn == "x" ? "o" : "x"
+  },
   handleClick: function(){
     if( !this.state.checked ){
       this.setState({ 
-	checked: true
+	checked: true,
+	turn: this.getTurn()
       });
     }
-    this.props.setClick();
   },
   render: function(){
-    var icon = this.state.checked ? "x" : "";
     return(
       <div className="ticTacToeSquare" onClick={this.handleClick}> 
-	{icon}
+        {this.state.turn}	
       </div>
     );	  
   }
 });
 
 React.render(
-  <TicTacToeBoard />,
+  <TicTacToeBoard turn="x" />,
   document.querySelector('.board')
 );
