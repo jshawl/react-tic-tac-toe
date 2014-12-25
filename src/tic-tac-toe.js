@@ -1,4 +1,3 @@
-var clicks = 0;
 var TicTacToeBoard = React.createClass({
   getInitialState: function(){
     return { turn: 'x' };		   
