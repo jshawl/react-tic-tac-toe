@@ -1,11 +1,25 @@
 var clicks = 0;
 var TicTacToeBoard = React.createClass({
+  getInitialState: function(){
+    return { turn: 'x' };		   
+  },
+  changeTurn: function(){
+    this.setState({
+      turn: this.state.turn == "x" ? "o" : "x"
+    });
+  },
   render: function(){
     return (
       <div className="ticTacToeBoard" >
-        <TicTacToeSquare turn={this.props.turn}/>
-        <TicTacToeSquare turn={this.props.turn}/>
-        <TicTacToeSquare turn={this.props.turn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <TicTacToeSquare turn={this.state.turn} changeTurn={this.changeTurn}/>
       </div>
     );	  
   }
@@ -15,21 +29,19 @@ var TicTacToeSquare = React.createClass({
   getInitialState: function(){
     return { checked: false };		   
   },
-  getTurn: function(){
-    this.props.turn = this.props.turn == "x" ? "o" : "x"
-  },
   handleClick: function(){
     if( !this.state.checked ){
+      this.props.changeTurn(this.props.key, this.props.turn);
       this.setState({ 
 	checked: true,
-	turn: this.getTurn()
+	turn: this.props.turn
       });
     }
   },
   render: function(){
     return(
       <div className="ticTacToeSquare" onClick={this.handleClick}> 
-        {this.state.turn}	
+	{this.state.turn}
       </div>
     );	  
   }
